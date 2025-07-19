@@ -14,7 +14,7 @@ def load_config():
     try:
         with open('config.json', 'r') as f:
             config = json.load(f)
-        return config['alpaca']['api_key'], config['alpaca']['secret_key']
+        return config['ALPACA_KEY'], config['ALPACA_SECRET']
     except FileNotFoundError:
         print("config.json not found. Please create it with your Alpaca API credentials.")
         return None, None
