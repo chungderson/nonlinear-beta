@@ -35,39 +35,39 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 4. **LLY (Eli Lilly)**: 0.750 ratio - $700B market cap
 5. **CVX (Chevron)**: 0.736 ratio - $300B market cap
 
-## S&P 500 Beta Asymmetry Heatmap Analysis
+## S&P 500 Comprehensive Beta Analysis
 
-### Market Cap Weighted Analysis
-A comprehensive analysis of the top 50 S&P 500 companies by market capitalization, examining their positive-to-negative beta ratios to identify asymmetric behavior patterns.
+### Full Market Analysis
+A comprehensive analysis of S&P 500 companies examining their positive-to-negative beta ratios across all sectors, providing detailed rankings and sector-by-sector breakdowns.
 
-![S&P 500 Beta Heatmap](https://github.com/chungderson/nonlinear-beta/raw/main/docs/sp500_beta_heatmap.png)
+### Key Findings
 
-### Key S&P 500 Findings
-
-**Top 10 Companies by Beta Ratio (Positive/Negative):**
+**Highest Positive/Negative Beta Ratios (Upside Bias):**
 1. **UNH** (UnitedHealth): 1.299 ratio - $500B market cap
-2. **TXN** (Texas Instruments): 1.255 ratio - $150B market cap  
+2. **TXN** (Texas Instruments): 1.255 ratio - $150B market cap
 3. **DHR** (Danaher): 1.254 ratio - $200B market cap
 4. **NEE** (NextEra Energy): 1.226 ratio - $150B market cap
 5. **INTC** (Intel): 1.226 ratio - $200B market cap
-6. **TMO** (Thermo Fisher): 1.217 ratio - $200B market cap
-7. **WMT** (Walmart): 1.188 ratio - $500B market cap
-8. **ADP** (Automatic Data Processing): 1.171 ratio - $100B market cap
-9. **UNP** (Union Pacific): 1.148 ratio - $150B market cap
-10. **AMD** (Advanced Micro Devices): 1.137 ratio - $200B market cap
 
-### Sector Insights
-- **Healthcare** (UNH, TMO) shows strong upside bias
-- **Technology** (TXN, INTC, AMD) shows mixed patterns
-- **Energy** (NEE) shows upside bias
-- **Consumer** (WMT) shows upside bias
-- **Financials** (ADP, UNP) show upside bias
+**Lowest Positive/Negative Beta Ratios (Downside Bias):**
+1. **ABBV** (AbbVie): 0.578 ratio - $250B market cap
+2. **PFE** (Pfizer): 0.651 ratio - $150B market cap
+3. **PM** (Philip Morris): 0.717 ratio - $150B market cap
+4. **LLY** (Eli Lilly): 0.750 ratio - $700B market cap
+5. **CVX** (Chevron): 0.736 ratio - $300B market cap
 
-### Interpretation
-- **Ratio > 1.0**: Higher beta during positive market days (more sensitive to upside)
-- **Ratio < 1.0**: Higher beta during negative market days (more sensitive to downside)
-- **Largest ratios**: Companies that perform better in bull markets
-- **Smallest ratios**: Companies that perform better in bear markets
+### Sector-by-Sector Analysis
+The analysis provides detailed bar charts for each sector showing:
+- **Technology**: Mixed patterns with some strong upside bias
+- **Healthcare**: Notable downside bias in pharmaceutical companies
+- **Financials**: Generally moderate upside bias
+- **Consumer Discretionary**: Varied patterns across retail and services
+- **Energy**: Strong downside bias during market stress
+- **Utilities**: Generally stable with slight upside bias
+- **Industrials**: Mixed patterns with some defensive characteristics
+- **Materials**: Cyclical patterns with market sensitivity
+- **Real Estate**: Defensive characteristics with moderate ratios
+- **Consumer Staples**: Generally defensive with lower ratios
 
 ## Methodology
 
@@ -156,16 +156,16 @@ The analysis produces several key visualizations to help understand nonlinear be
 - Blue bars: Higher positive beta (more sensitive in up markets)
 - Red bars: Higher negative beta (more sensitive in down markets)
 
-### 3. S&P 500 Beta Asymmetry Heatmap
-![S&P 500 Beta Heatmap](https://github.com/chungderson/nonlinear-beta/raw/main/docs/sp500_beta_heatmap.png)
+### 3. S&P 500 Sector-by-Sector Analysis
+![S&P 500 Sector Charts](https://github.com/chungderson/nonlinear-beta/raw/main/docs/sp500_sector_charts.png)
 
-**Market Cap Weighted Analysis**:
-- Color-coded heatmap showing positive-to-negative beta ratios
-- Companies weighted by market capitalization
-- Top 50 S&P 500 companies analyzed
-- Red colors: Higher positive beta (upside bias)
-- Blue colors: Higher negative beta (downside bias)
-- Text annotations show company symbol, beta ratio, and market cap
+**Sector-by-Sector Bar Charts**:
+- Horizontal bar charts for each sector
+- Companies sorted by beta ratio within each sector
+- Color coding: Red (high upside), Orange (moderate upside), Yellow (slight upside), Light Blue (slight downside), Blue (high downside)
+- Reference line at 1.0 for symmetric behavior
+- Ratio values displayed on each bar
+- Comprehensive analysis across all major sectors
 
 ## Interpretation Guide
 
