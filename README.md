@@ -137,7 +137,9 @@ The analysis produces several key visualizations to help understand nonlinear be
 - Ratio < 1: More sensitive in up markets
 
 **Bottom Right**: Beta Difference Analysis
-- Absolute difference between negative and positive betas
+- Absolute difference between positive and negative betas (Positive - Negative)
+- Positive values: Higher sensitivity in up markets
+- Negative values: Higher sensitivity in down markets
 - Larger bars indicate more asymmetric behavior
 
 ### 2. T-Test Results Visualization
@@ -149,18 +151,20 @@ The analysis produces several key visualizations to help understand nonlinear be
 - Green line shows mean difference
 
 **Top Right**: Distribution of Beta Differences
-- Histogram showing the spread of differences
+- Histogram showing the spread of differences (Positive - Negative)
 - Red line at zero (no difference)
 - Green line shows mean difference
+- Positive values: Higher upside sensitivity
+- Negative values: Higher downside sensitivity
 
 **Bottom Left**: Box Plot Comparison
 - Side-by-side comparison of positive vs negative betas
 - Shows median, quartiles, and outliers
 
 **Bottom Right**: Top 10 Stocks by Beta Difference
-- Horizontal bar chart of largest differences
-- Red bars: Higher negative beta
-- Blue bars: Higher positive beta
+- Horizontal bar chart of largest differences (Positive - Negative)
+- Blue bars: Higher positive beta (more sensitive in up markets)
+- Red bars: Higher negative beta (more sensitive in down markets)
 
 ### 3. Interactive Scatter Plots
 The analysis also generates interactive Plotly visualizations that allow users to:

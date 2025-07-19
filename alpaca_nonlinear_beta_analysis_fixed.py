@@ -317,7 +317,7 @@ class NonlinearBetaAnalyzer:
                     'symbol': symbol,
                     'beta_positive': result['beta_positive'],
                     'beta_negative': result['beta_negative'],
-                    'difference': result['beta_negative'] - result['beta_positive']
+                    'difference': result['beta_positive'] - result['beta_negative']
                 })
         
         if len(beta_pairs) < 2:
@@ -349,7 +349,7 @@ class NonlinearBetaAnalyzer:
         print(f"Sample Size: {n_stocks} stocks")
         print(f"Mean Positive Beta: {df_pairs['beta_positive'].mean():.4f}")
         print(f"Mean Negative Beta: {df_pairs['beta_negative'].mean():.4f}")
-        print(f"Mean Difference (Negative - Positive): {mean_diff:.4f}")
+        print(f"Mean Difference (Positive - Negative): {mean_diff:.4f}")
         print(f"Standard Deviation of Differences: {std_diff:.4f}")
         print(f"T-statistic: {t_stat:.4f}")
         print(f"P-value: {p_value:.6f}")
@@ -370,9 +370,9 @@ class NonlinearBetaAnalyzer:
         
         if p_value < 0.05:
             if mean_diff > 0:
-                print(f"  Negative market betas are significantly HIGHER than positive market betas")
+                print(f"  Positive market betas are significantly HIGHER than negative market betas")
             else:
-                print(f"  Negative market betas are significantly LOWER than positive market betas")
+                print(f"  Positive market betas are significantly LOWER than negative market betas")
         else:
             print(f"  No significant difference between positive and negative market betas")
             
@@ -381,7 +381,7 @@ class NonlinearBetaAnalyzer:
         df_sorted = df_pairs.sort_values('difference', key=abs, ascending=False)
         for _, row in df_sorted.head(10).iterrows():
             direction = "higher" if row['difference'] > 0 else "lower"
-            print(f"  {row['symbol']}: {row['difference']:.4f} ({direction} negative beta)")
+            print(f"  {row['symbol']}: {row['difference']:.4f} ({direction} positive beta)")
             
         return {
             't_statistic': t_stat,
@@ -403,7 +403,7 @@ class NonlinearBetaAnalyzer:
         df = pd.DataFrame(self.results).T
         
         # Add some derived metrics
-        df['beta_difference'] = df['beta_negative'] - df['beta_positive']
+        df['beta_difference'] = df['beta_positive'] - df['beta_negative']
         df['abs_asymmetry'] = abs(df['asymmetry_ratio'])
         df['volatility'] = [self.stock_returns[symbol].std() for symbol in df.index]
         df['avg_return'] = [self.stock_returns[symbol].mean() for symbol in df.index]
@@ -454,7 +454,7 @@ class NonlinearBetaAnalyzer:
         axes[1, 1].bar(range(len(df)), df['beta_difference'], alpha=0.7)
         axes[1, 1].axhline(y=0, color='r', linestyle='--', alpha=0.5)
         axes[1, 1].set_xlabel('Stock Index')
-        axes[1, 1].set_ylabel('Beta Difference (β_neg - β_pos)')
+        axes[1, 1].set_ylabel('Beta Difference (β_pos - β_neg)')
         axes[1, 1].set_title('Beta Difference')
         axes[1, 1].set_xticks(range(len(df)))
         axes[1, 1].set_xticklabels(df.index, rotation=45)
@@ -495,7 +495,7 @@ class NonlinearBetaAnalyzer:
         axes[0, 1].axvline(x=0, color='r', linestyle='--', alpha=0.7, label='No difference')
         axes[0, 1].axvline(x=t_test_results['mean_difference'], color='g', linestyle='-', 
                            alpha=0.7, label=f'Mean diff: {t_test_results["mean_difference"]:.4f}')
-        axes[0, 1].set_xlabel('Beta Difference (Negative - Positive)')
+        axes[0, 1].set_xlabel('Beta Difference (Positive - Negative)')
         axes[0, 1].set_ylabel('Frequency')
         axes[0, 1].set_title('Distribution of Beta Differences')
         axes[0, 1].legend()
@@ -514,7 +514,7 @@ class NonlinearBetaAnalyzer:
         axes[1, 1].barh(range(len(top_differences)), top_differences['difference'], color=colors, alpha=0.7)
         axes[1, 1].set_yticks(range(len(top_differences)))
         axes[1, 1].set_yticklabels(top_differences['symbol'])
-        axes[1, 1].set_xlabel('Beta Difference (Negative - Positive)')
+        axes[1, 1].set_xlabel('Beta Difference (Positive - Negative)')
         axes[1, 1].set_title('Top 10 Stocks by Beta Difference')
         axes[1, 1].axvline(x=0, color='black', linestyle='-', alpha=0.5)
         axes[1, 1].grid(True, alpha=0.3)
@@ -528,6 +528,7 @@ class NonlinearBetaAnalyzer:
         print(f"  Significant at 5% level: {t_test_results['significant']}")
         print(f"  Mean difference: {t_test_results['mean_difference']:.4f}")
         print(f"  95% CI: [{t_test_results['confidence_interval'][0]:.4f}, {t_test_results['confidence_interval'][1]:.4f}]")
+        print(f"  Interpretation: Positive - Negative Beta Difference")
         
     def plot_interactive_scatter(self):
         """Create an interactive scatter plot using Plotly."""
