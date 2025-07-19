@@ -482,6 +482,79 @@ def create_scatter_plot(beta_results, sector_map):
     plt.close()
     print("Beta scatter plot saved to docs/beta_scatter_plot.png")
 
+def create_comprehensive_statistical_analysis(beta_results, sector_map):
+    """Create comprehensive 2x2 statistical analysis chart."""
+    if not beta_results:
+        print("No beta results available.")
+        return
+    
+    # Convert to DataFrame
+    df = pd.DataFrame.from_dict(beta_results, orient='index')
+    df = df.dropna(subset=['positive_beta', 'negative_beta'])
+    
+    # Calculate beta differences
+    df['beta_difference'] = df['positive_beta'] - df['negative_beta']
+    
+    # Create 2x2 subplot
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
+    
+    # Top-left: Scatter plot of positive vs negative betas
+    ax1.scatter(df['positive_beta'], df['negative_beta'], alpha=0.6, s=30)
+    max_val = max(df['positive_beta'].max(), df['negative_beta'].max())
+    ax1.plot([0, max_val], [0, max_val], 'r--', alpha=0.7, label='Equal betas')
+    ax1.set_xlabel('Positive Market Beta')
+    ax1.set_ylabel('Negative Market Beta')
+    ax1.set_title('Positive vs Negative Market Betas')
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+    
+    # Top-right: Histogram of beta differences
+    ax2.hist(df['beta_difference'], bins=30, alpha=0.7, edgecolor='black')
+    ax2.axvline(x=0, color='red', linestyle='--', alpha=0.7, label='No difference')
+    ax2.axvline(x=df['beta_difference'].mean(), color='green', linestyle='-', alpha=0.7, 
+                label=f'Mean diff: {df["beta_difference"].mean():.4f}')
+    ax2.set_xlabel('Beta Difference (Positive - Negative)')
+    ax2.set_ylabel('Frequency')
+    ax2.set_title('Distribution of Beta Differences')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+    
+    # Bottom-left: Box plot of positive vs negative betas
+    box_data = [df['positive_beta'], df['negative_beta']]
+    ax3.boxplot(box_data, labels=['Positive Beta', 'Negative Beta'])
+    ax3.set_ylabel('Beta Value')
+    ax3.set_title('Box Plot: Positive vs Negative Betas')
+    ax3.grid(True, alpha=0.3)
+    
+    # Bottom-right: Top 10 stocks by absolute beta difference
+    top_10_by_diff = df.nlargest(10, 'beta_difference')
+    bottom_10_by_diff = df.nsmallest(10, 'beta_difference')
+    
+    # Combine and sort by absolute difference
+    combined_diff = pd.concat([top_10_by_diff, bottom_10_by_diff])
+    combined_diff['abs_diff'] = abs(combined_diff['beta_difference'])
+    top_10_abs = combined_diff.nlargest(10, 'abs_diff')
+    
+    colors = ['blue' if x >= 0 else 'red' for x in top_10_abs['beta_difference']]
+    bars = ax4.barh(range(len(top_10_abs)), top_10_abs['beta_difference'], color=colors, alpha=0.7)
+    ax4.axvline(x=0, color='black', linestyle='--', alpha=0.5)
+    ax4.set_yticks(range(len(top_10_abs)))
+    ax4.set_yticklabels(top_10_abs.index)
+    ax4.set_xlabel('Beta Difference (Positive - Negative)')
+    ax4.set_title('Top 10 Stocks by Beta Difference')
+    ax4.grid(True, alpha=0.3)
+    
+    # Add value labels on bars
+    for bar, diff in zip(bars, top_10_abs['beta_difference']):
+        ax4.text(bar.get_width() + 0.01 if bar.get_width() >= 0 else bar.get_width() - 0.01, 
+                bar.get_y() + bar.get_height()/2, 
+                f'{diff:.3f}', va='center', fontsize=8)
+    
+    plt.tight_layout()
+    plt.savefig('docs/comprehensive_statistical_analysis.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    print("Comprehensive statistical analysis saved to docs/comprehensive_statistical_analysis.png")
+
 def main():
     """Main function to regenerate charts."""
     print("Regenerating charts using existing data...")
@@ -504,6 +577,7 @@ def main():
     create_comprehensive_sector_chart(beta_results, sector_map)
     create_beta_comparison_charts(beta_results, sector_map)
     create_scatter_plot(beta_results, sector_map)
+    create_comprehensive_statistical_analysis(beta_results, sector_map)
     
     print("Chart regeneration complete!")
 
