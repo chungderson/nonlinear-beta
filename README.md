@@ -47,13 +47,15 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 
 ## Visualizations
 
-### Sector-by-Sector Analysis
+### Comprehensive S&P 500 Analysis Charts
+
+#### 1. Sector-by-Sector Analysis (Split for Readability)
 The analysis is split into two comprehensive charts for optimal readability:
 
-1. **`docs/sp500_sector_charts_part1.png`** - First 6 sectors with improved readability
-2. **`docs/sp500_sector_charts_part2.png`** - Remaining 5 sectors with enhanced spacing
-
+**Part 1 - First 6 Sectors:**
 ![S&P 500 Sector Charts Part 1](docs/sp500_sector_charts_part1.png)
+
+**Part 2 - Remaining 5 Sectors:**
 ![S&P 500 Sector Charts Part 2](docs/sp500_sector_charts_part2.png)
 
 **Features:**
@@ -63,14 +65,36 @@ The analysis is split into two comprehensive charts for optimal readability:
 - **Value Labels**: Each bar shows the exact beta ratio
 - **Reference Line**: Dashed line at 1.0 for symmetry reference
 
-### Sector Comparison Chart
-**`docs/sector_beta_comparison.png`** - Comprehensive sector analysis showing:
-- Average positive vs negative betas by sector
-- Beta ratio comparison across all sectors
-- Consistent gradient color scheme
-- Clear visual identification of asymmetric sectors
+#### 2. Sector Comparison Analysis
+**Comprehensive sector analysis showing average positive vs negative betas and beta ratios:**
 
 ![Sector Beta Comparison](docs/sector_beta_comparison.png)
+
+**What this shows:**
+- **Top Chart**: Average positive vs negative betas by sector with consistent gradient colors
+- **Bottom Chart**: Beta ratio comparison across all 11 sectors
+- **Color Coding**: Red (high positive bias) to Blue (high negative bias)
+- **Clear identification** of asymmetric sectors (Energy: 0.751, Industrials: 1.079)
+
+#### 3. Original Comprehensive Analysis
+**Complete S&P 500 analysis with all sectors in one view:**
+
+![Complete S&P 500 Sector Analysis](docs/sp500_optimized_sector_charts.png)
+
+#### 4. Beta Comparison Analysis
+**Detailed beta analysis showing relationships between different beta measures:**
+
+![Beta Comparison Analysis](docs/beta_comparison.png)
+
+#### 5. Statistical Testing Results
+**T-test results and statistical significance of beta asymmetry:**
+
+![T-Test Results](docs/t_test_results.png)
+
+#### 6. Beta Heatmap
+**Visual heatmap showing beta patterns across sectors:**
+
+![Beta Heatmap](docs/sp500_beta_heatmap.png)
 
 ## Technical Implementation
 
