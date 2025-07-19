@@ -2,6 +2,8 @@
 
 This repository implements a comprehensive analysis of nonlinear beta relationships in stock returns, challenging the traditional CAPM assumption that stocks have constant sensitivity to market movements regardless of market direction.
 
+I build on Eran Raviv's work from 2014 [here](https://eranraviv.com/non-linear-beta/).
+
 ## Research Question
 
 **Do stocks behave differently in positive vs negative market environments?**
