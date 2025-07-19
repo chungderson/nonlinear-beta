@@ -94,8 +94,9 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 - **All 502 companies** plotted
 - **Equal aspect ratio** for proper visualization
 
-#### 6. Comprehensive Statistical Analysis
-**2x2 grid analysis showing scatter plot, histogram, box plot, and top 10 stocks by beta difference:**
+
+#### 6. Statistical Testing Results
+**T-test results and statistical significance of beta asymmetry:**
 
 ![Comprehensive Statistical Analysis](docs/comprehensive_statistical_analysis.png)
 
@@ -104,11 +105,6 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 - **Top-Right**: Histogram of beta differences with mean and zero reference lines
 - **Bottom-Left**: Box plot comparing positive vs negative beta distributions
 - **Bottom-Right**: Top 10 stocks by absolute beta difference (blue = positive bias, red = negative bias)
-
-#### 7. Statistical Testing Results
-**T-test results and statistical significance of beta asymmetry:**
-
-![T-Test Results](docs/t_test_results.png)
 
 ## Technical Implementation
 
