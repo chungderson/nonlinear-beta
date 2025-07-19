@@ -84,9 +84,7 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 
 **Features:**
 - **All 11 GICS sectors** in a single, comprehensive view
-- **Gradient Color Scheme**: Red (high positive bias) → Orange → Yellow → Light Blue → Blue (high negative bias)
-- **Improved Readability**: Optimized layout with proper spacing
-- **Value Labels**: Each bar shows the exact beta ratio
+- **Gradient Color Scheme**: Red (high positive bias) → Blue (high negative bias)
 - **Reference Line**: Dashed line at 1.0 for symmetry reference
 
 #### 2. Sector Comparison Analysis (with 90% Confidence Intervals)
