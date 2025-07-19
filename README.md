@@ -61,23 +61,40 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 - **Value Labels**: Each bar shows the exact beta ratio
 - **Reference Line**: Dashed line at 1.0 for symmetry reference
 
-#### 2. Sector Comparison Analysis
+#### 2. Sector Comparison Analysis (with 90% Confidence Intervals)
 **Comprehensive sector analysis showing average positive vs negative betas and beta ratios:**
 
 ![Sector Beta Comparison](docs/sector_beta_comparison.png)
 
 **What this shows:**
-- **Top Chart**: Average positive vs negative betas by sector with consistent gradient colors
+- **Top Chart**: Average positive vs negative betas by sector with 90% confidence intervals
 - **Bottom Chart**: Beta ratio comparison across all 11 sectors
-- **Color Coding**: Red (high positive bias) to Blue (high negative bias)
+- **Error Bars**: 90% confidence intervals for statistical significance
+- **Color Coding**: Green (high positive bias) to Red (high negative bias)
 - **Clear identification** of asymmetric sectors (Energy: 0.751, Industrials: 1.079)
 
-#### 3. Beta Comparison Analysis
-**Detailed beta analysis showing relationships between different beta measures:**
+#### 3. Beta Comparison Analysis - Highest Beta Stocks
+**Positive vs negative betas for the 20 highest beta stocks:**
 
-![Beta Comparison Analysis](docs/beta_comparison.png)
+![Highest Beta Comparison](docs/beta_comparison_highest.png)
 
-#### 4. Statistical Testing Results
+#### 4. Beta Comparison Analysis - Lowest Beta Stocks
+**Positive vs negative betas for the 20 lowest beta stocks (sorted by absolute beta):**
+
+![Lowest Beta Comparison](docs/beta_comparison_lowest.png)
+
+#### 5. Beta Scatter Plot
+**Scatter plot showing positive vs negative betas for all 502 companies:**
+
+![Beta Scatter Plot](docs/beta_scatter_plot.png)
+
+**Features:**
+- **Positive Beta** on x-axis, **Negative Beta** on y-axis
+- **Diagonal reference line** for equal betas
+- **All 502 companies** plotted
+- **Equal aspect ratio** for proper visualization
+
+#### 6. Statistical Testing Results
 **T-test results and statistical significance of beta asymmetry:**
 
 ![T-Test Results](docs/t_test_results.png)
