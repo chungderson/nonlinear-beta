@@ -26,64 +26,45 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 4. **AMZN (Amazon)**: 1.235 ratio - higher downside beta
 5. **RTX (Raytheon)**: 1.219 ratio - higher downside beta
 
-## Quick Start
+## S&P 500 Beta Asymmetry Heatmap Analysis
 
-### Prerequisites
-- Python 3.8+
-- Alpaca Markets API account
+### Market Cap Weighted Analysis
+A comprehensive analysis of the top 50 S&P 500 companies by market capitalization, examining their positive-to-negative beta ratios to identify asymmetric behavior patterns.
 
-### Installation
+![S&P 500 Beta Heatmap](https://github.com/chungderson/nonlinear-beta/raw/main/docs/sp500_beta_heatmap.png)
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/chungderson/nonlinear-beta.git
-cd nonlinear-beta
-```
+### Key S&P 500 Findings
 
-2. **Create virtual environment**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+**Top 10 Companies by Beta Ratio (Positive/Negative):**
+1. **UNH** (UnitedHealth): 1.299 ratio - $500B market cap
+2. **TXN** (Texas Instruments): 1.255 ratio - $150B market cap  
+3. **DHR** (Danaher): 1.254 ratio - $200B market cap
+4. **NEE** (NextEra Energy): 1.226 ratio - $150B market cap
+5. **INTC** (Intel): 1.226 ratio - $200B market cap
+6. **TMO** (Thermo Fisher): 1.217 ratio - $200B market cap
+7. **WMT** (Walmart): 1.188 ratio - $500B market cap
+8. **ADP** (Automatic Data Processing): 1.171 ratio - $100B market cap
+9. **UNP** (Union Pacific): 1.148 ratio - $150B market cap
+10. **AMD** (Advanced Micro Devices): 1.137 ratio - $200B market cap
 
-3. **Install dependencies**
-```bash
-pip install -r requirements.txt
-```
+### Sector Insights
+- **Healthcare** (UNH, TMO) shows strong upside bias
+- **Technology** (TXN, INTC, AMD) shows mixed patterns
+- **Energy** (NEE) shows upside bias
+- **Consumer** (WMT) shows upside bias
+- **Financials** (ADP, UNP) show upside bias
 
-4. **Configure Alpaca API**
-Create a `config.json` file:
-```json
-{
-    "ALPACA_KEY": "your_api_key_here",
-    "ALPACA_SECRET": "your_secret_key_here"
-}
-```
-
-### Run Analysis
-
-```bash
-python alpaca_nonlinear_beta_analysis_fixed.py
-```
-
-## Repository Structure
-
-```
-nonlinear-beta/
-├── alpaca_nonlinear_beta_analysis_fixed.py  # Main analysis script
-├── requirements.txt                          # Python dependencies
-├── config.json                              # API configuration (not in repo)
-├── alpaca_nonlinear_beta_results.csv        # Analysis results
-├── README.md                               # This file
-├── .gitignore                              # Git ignore rules
-└── venv/                                   # Virtual environment (not in repo)
-```
+### Interpretation
+- **Ratio > 1.0**: Higher beta during positive market days (more sensitive to upside)
+- **Ratio < 1.0**: Higher beta during negative market days (more sensitive to downside)
+- **Largest ratios**: Companies that perform better in bull markets
+- **Smallest ratios**: Companies that perform better in bear markets
 
 ## Methodology
 
 ### Data Collection
 - **Market Proxy**: SPY (S&P 500 ETF)
-- **Stock Universe**: 45 major US stocks
+- **Stock Universe**: 45 major US stocks + 50 S&P 500 companies
 - **Time Period**: 2021-2025 (1,139 trading days)
 - **Data Source**: Alpaca Markets API (daily bars)
 
@@ -166,12 +147,16 @@ The analysis produces several key visualizations to help understand nonlinear be
 - Blue bars: Higher positive beta (more sensitive in up markets)
 - Red bars: Higher negative beta (more sensitive in down markets)
 
-### 3. Interactive Scatter Plots
-The analysis also generates interactive Plotly visualizations that allow users to:
-- Hover over points to see stock details
-- Zoom and pan through the data
-- Export high-quality images
-- Explore relationships between different metrics
+### 3. S&P 500 Beta Asymmetry Heatmap
+![S&P 500 Beta Heatmap](https://github.com/chungderson/nonlinear-beta/raw/main/docs/sp500_beta_heatmap.png)
+
+**Market Cap Weighted Analysis**:
+- Color-coded heatmap showing positive-to-negative beta ratios
+- Companies weighted by market capitalization
+- Top 50 S&P 500 companies analyzed
+- Red colors: Higher positive beta (upside bias)
+- Blue colors: Higher negative beta (downside bias)
+- Text annotations show company symbol, beta ratio, and market cap
 
 ## Interpretation Guide
 
@@ -196,71 +181,8 @@ The analysis also generates interactive Plotly visualizations that allow users t
 1. **Nonlinear Behavior**: Many stocks show significant asymmetry
 2. **Risk Management**: Traditional beta underestimates downside risk for asymmetric stocks
 3. **Portfolio Construction**: Consider separate up/down betas for better risk modeling
-
-## Customization
-
-### Modify Stock Universe
-Edit the `stock_symbols` list in `main()`:
-```python
-stock_symbols = [
-    'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'NFLX',
-    # Add your preferred stocks here
-]
-```
-
-### Change Time Period
-Modify the `start_date` parameter:
-```python
-analyzer.fetch_data(stock_symbols, start_date='2020-01-01T00:00:00-04:00')
-```
-
-### Adjust Statistical Parameters
-- Minimum data points for beta calculation
-- Confidence level for t-tests
-- Significance thresholds
-
-## Dependencies
-
-```
-pandas>=2.0
-matplotlib>=3.7
-requests>=2.31
-python-dateutil>=2.8
-pytz>=2024.1
-numpy>=1.24
-scipy>=1.10
-scikit-learn>=1.3
-plotly>=5.15
-seaborn>=0.12
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Alpaca Markets for providing market data
-- Academic research on nonlinear beta relationships
-- Open source financial analysis community
-
-## Contact
-
-For questions or collaboration opportunities, please open an issue or contact the maintainers.
-
----
-
-**Note**: This analysis challenges traditional financial theory and should be used alongside other risk management tools. Past performance does not guarantee future results.
-
----
+4. **Sector Patterns**: Healthcare and technology show distinct asymmetric patterns
+5. **Market Cap Effects**: Larger companies show different asymmetry patterns than smaller ones
 
 ## Development Tools
 
@@ -271,3 +193,7 @@ This project was developed using:
 - **Alpaca Markets API**: Financial data provider
 
 *Built with modern AI-assisted development tools to accelerate research and analysis.*
+
+---
+
+**Note**: This analysis challenges traditional financial theory and should be used alongside other risk management tools. Past performance does not guarantee future results.
