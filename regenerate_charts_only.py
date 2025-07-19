@@ -197,32 +197,13 @@ def create_sector_beta_charts(beta_results, sector_map):
     negative_avgs = [s[1]['negative_avg'] for s in sorted_sectors]
     ratios = [s[1]['ratio'] for s in sorted_sectors]
     
-    # Bar chart with gradient colors
+    # Bar chart with original nice color scheme
     x = np.arange(len(sectors))
     width = 0.35
     
-    # Use gradient colors for positive/negative bars too (red at top, blue at bottom)
-    pos_colors = []
-    neg_colors = []
-    for ratio in ratios:
-        if ratio < 0.8:
-            pos_colors.append('blue')  # Highest negative bias at bottom
-            neg_colors.append('blue')
-        elif ratio < 0.9:
-            pos_colors.append('lightblue')
-            neg_colors.append('lightblue')
-        elif ratio < 1.0:
-            pos_colors.append('yellow')
-            neg_colors.append('yellow')
-        elif ratio < 1.1:
-            pos_colors.append('orange')
-            neg_colors.append('orange')
-        else:
-            pos_colors.append('red')  # Highest positive bias at top
-            neg_colors.append('red')
-    
-    bars1 = ax1.bar(x - width/2, positive_avgs, width, label='Positive Beta', color=pos_colors, alpha=0.7)
-    bars2 = ax1.bar(x + width/2, negative_avgs, width, label='Negative Beta', color=neg_colors, alpha=0.7)
+    # Use original nice colors: green for positive, red for negative
+    bars1 = ax1.bar(x - width/2, positive_avgs, width, label='Positive Beta', color='green', alpha=0.7)
+    bars2 = ax1.bar(x + width/2, negative_avgs, width, label='Negative Beta', color='red', alpha=0.7)
     
     ax1.set_xlabel('Sector')
     ax1.set_ylabel('Average Beta')
@@ -239,20 +220,8 @@ def create_sector_beta_charts(beta_results, sector_map):
             ax1.text(bar.get_x() + bar.get_width()/2., height + 0.01,
                     f'{height:.3f}', ha='center', va='bottom', fontsize=8)
     
-    # Ratio chart with gradient color scheme (red at top, blue at bottom)
-    colors = []
-    for ratio in ratios:
-        if ratio < 0.8:
-            colors.append('blue')  # Highest negative bias at bottom
-        elif ratio < 0.9:
-            colors.append('lightblue')
-        elif ratio < 1.0:
-            colors.append('yellow')
-        elif ratio < 1.1:
-            colors.append('orange')
-        else:
-            colors.append('red')  # Highest positive bias at top
-    
+    # Ratio chart with original nice color scheme
+    colors = ['green' if r >= 1.0 else 'red' for r in ratios]
     bars3 = ax2.bar(sectors, ratios, color=colors, alpha=0.7)
     ax2.axhline(y=1.0, color='black', linestyle='--', alpha=0.5, label='Symmetric (1.0)')
     ax2.set_xlabel('Sector')
