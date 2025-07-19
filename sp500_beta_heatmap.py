@@ -188,7 +188,7 @@ class SP500BetaAnalyzer:
         return beta_results
     
     def create_heatmap(self, beta_results, market_caps, top_n=50):
-        """Create a heatmap of beta ratios weighted by market cap."""
+        """Create a true heatmap of beta ratios with squares sized by market cap."""
         # Convert to DataFrame
         df = pd.DataFrame.from_dict(beta_results, orient='index')
         
@@ -202,54 +202,94 @@ class SP500BetaAnalyzer:
         df = df.sort_values('beta_ratio', ascending=False).head(top_n)
         
         # Create the heatmap
-        fig, ax = plt.subplots(figsize=(16, 12))
+        fig, ax = plt.subplots(figsize=(20, 16))
         
-        # Prepare data for heatmap
-        symbols = df.index.tolist()
-        beta_ratios = df['beta_ratio'].values
-        market_caps_scaled = df['market_cap'].values / 100  # Scale for better visualization
+        # Calculate grid dimensions
+        n_companies = len(df)
+        grid_size = int(np.ceil(np.sqrt(n_companies)))
         
-        # Create a matrix for the heatmap
-        # We'll use beta ratio as the main value and market cap as size
-        heatmap_data = np.array([[ratio] for ratio in beta_ratios])
+        # Create a grid layout
+        positions = []
+        for i in range(grid_size):
+            for j in range(grid_size):
+                positions.append((i, j))
         
-        # Create the heatmap
-        im = ax.imshow(heatmap_data, cmap='RdYlBu_r', aspect='auto')
+        # Normalize market caps for sizing
+        max_market_cap = df['market_cap'].max()
+        min_market_cap = df['market_cap'].min()
+        market_cap_range = max_market_cap - min_market_cap
         
-        # Set ticks and labels
-        ax.set_yticks(range(len(symbols)))
-        ax.set_yticklabels(symbols)
-        ax.set_xticks([])
-        
-        # Add colorbar
-        cbar = plt.colorbar(im, ax=ax, shrink=0.8)
-        cbar.set_label('Positive/Negative Beta Ratio', rotation=270, labelpad=20)
-        
-        # Add text annotations
-        for i, symbol in enumerate(symbols):
-            ratio = beta_ratios[i]
-            market_cap = df.loc[symbol, 'market_cap']
-            
-            # Color text based on ratio
-            if ratio > 1.2:
-                text_color = 'white'
-            elif ratio < 0.8:
-                text_color = 'black'
-            else:
-                text_color = 'black'
+        # Create squares for each company
+        for idx, (symbol, row) in enumerate(df.iterrows()):
+            if idx >= len(positions):
+                break
                 
-            ax.text(0, i, f'{symbol}\n({ratio:.2f})\n${market_cap}B', 
-                   ha='center', va='center', color=text_color, fontweight='bold')
+            i, j = positions[idx]
+            ratio = row['beta_ratio']
+            market_cap = row['market_cap']
+            
+            # Size based on market cap (normalized)
+            size_factor = 0.3 + 0.7 * (market_cap - min_market_cap) / market_cap_range
+            square_size = size_factor
+            
+            # Color based on beta ratio
+            if ratio > 1.1:
+                color = 'red'  # High upside bias
+            elif ratio > 1.0:
+                color = 'orange'  # Moderate upside bias
+            elif ratio > 0.9:
+                color = 'yellow'  # Slight upside bias
+            elif ratio > 0.8:
+                color = 'lightblue'  # Slight downside bias
+            else:
+                color = 'blue'  # High downside bias
+            
+            # Create rectangle
+            rect = plt.Rectangle((j - square_size/2, i - square_size/2), 
+                               square_size, square_size, 
+                               facecolor=color, edgecolor='black', linewidth=1)
+            ax.add_patch(rect)
+            
+            # Add text (ticker and ratio)
+            ax.text(j, i, f'{symbol}\n{ratio:.3f}', 
+                   ha='center', va='center', fontsize=8, fontweight='bold',
+                   color='black' if ratio > 0.9 else 'white')
         
-        ax.set_title(f'S&P 500 Beta Asymmetry Heatmap\n(Top {len(symbols)} Companies by Positive/Negative Beta Ratio)', 
+        # Set up the plot
+        ax.set_xlim(-0.5, grid_size - 0.5)
+        ax.set_ylim(-0.5, grid_size - 0.5)
+        ax.set_aspect('equal')
+        
+        # Remove axes
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        
+        # Add title
+        ax.set_title(f'S&P 500 Beta Asymmetry Heatmap\n(Top {len(df)} Companies by Positive/Negative Beta Ratio)', 
                     fontsize=16, fontweight='bold', pad=20)
+        
+        # Add legend
+        legend_elements = [
+            plt.Rectangle((0, 0), 1, 1, facecolor='red', edgecolor='black', label='Ratio > 1.1 (High Upside)'),
+            plt.Rectangle((0, 0), 1, 1, facecolor='orange', edgecolor='black', label='Ratio 1.0-1.1 (Moderate Upside)'),
+            plt.Rectangle((0, 0), 1, 1, facecolor='yellow', edgecolor='black', label='Ratio 0.9-1.0 (Slight Upside)'),
+            plt.Rectangle((0, 0), 1, 1, facecolor='lightblue', edgecolor='black', label='Ratio 0.8-0.9 (Slight Downside)'),
+            plt.Rectangle((0, 0), 1, 1, facecolor='blue', edgecolor='black', label='Ratio < 0.8 (High Downside)')
+        ]
+        ax.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1, 1))
         
         # Add summary statistics
         mean_ratio = df['beta_ratio'].mean()
         median_ratio = df['beta_ratio'].median()
         
         stats_text = f'Mean Ratio: {mean_ratio:.3f}\nMedian Ratio: {median_ratio:.3f}\n'
-        stats_text += f'Companies with Ratio > 1.0: {(df["beta_ratio"] > 1.0).sum()}/{len(df)}'
+        stats_text += f'Companies with Ratio > 1.0: {(df["beta_ratio"] > 1.0).sum()}/{len(df)}\n'
+        stats_text += f'Square size represents market cap\n'
+        stats_text += f'Color represents beta ratio'
         
         ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, 
                verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))

@@ -20,11 +20,20 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 - **Mean Asymmetry Ratio**: 1.009
 
 ### Most Asymmetric Stocks
-1. **PFE (Pfizer)**: 1.548 ratio - much higher downside beta
-2. **LLY (Eli Lilly)**: 1.313 ratio - higher downside beta
-3. **BMY (Bristol-Myers)**: 1.294 ratio - higher downside beta
-4. **AMZN (Amazon)**: 1.235 ratio - higher downside beta
-5. **RTX (Raytheon)**: 1.219 ratio - higher downside beta
+
+**Highest Positive/Negative Beta Ratios (Upside Bias):**
+1. **UNH (UnitedHealth)**: 1.299 ratio - $500B market cap
+2. **TXN (Texas Instruments)**: 1.255 ratio - $150B market cap
+3. **DHR (Danaher)**: 1.254 ratio - $200B market cap
+4. **NEE (NextEra Energy)**: 1.226 ratio - $150B market cap
+5. **INTC (Intel)**: 1.226 ratio - $200B market cap
+
+**Lowest Positive/Negative Beta Ratios (Downside Bias):**
+1. **ABBV (AbbVie)**: 0.578 ratio - $250B market cap
+2. **PFE (Pfizer)**: 0.651 ratio - $150B market cap
+3. **PM (Philip Morris)**: 0.717 ratio - $150B market cap
+4. **LLY (Eli Lilly)**: 0.750 ratio - $700B market cap
+5. **CVX (Chevron)**: 0.736 ratio - $300B market cap
 
 ## S&P 500 Beta Asymmetry Heatmap Analysis
 
