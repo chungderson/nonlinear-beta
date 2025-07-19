@@ -49,19 +49,15 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 
 ### Comprehensive S&P 500 Analysis Charts
 
-#### 1. Sector-by-Sector Analysis (Split for Readability)
-The analysis is split into two comprehensive charts for optimal readability:
+#### 1. Complete Sector-by-Sector Analysis
+**All 11 sectors in one comprehensive view:**
 
-**Part 1 - First 6 Sectors:**
-![S&P 500 Sector Charts Part 1](docs/sp500_sector_charts_part1.png)
-
-**Part 2 - Remaining 5 Sectors:**
-![S&P 500 Sector Charts Part 2](docs/sp500_sector_charts_part2.png)
+![Complete S&P 500 Sector Analysis](docs/sp500_optimized_sector_charts.png)
 
 **Features:**
+- **All 11 GICS sectors** in a single, comprehensive view
 - **Gradient Color Scheme**: Red (high positive bias) → Orange → Yellow → Light Blue → Blue (high negative bias)
-- **Improved Readability**: Taller charts (30" height) with optimized font sizes
-- **Better Spacing**: Especially for sectors with 60+ companies (Information Technology, Financials, Industrials)
+- **Improved Readability**: Optimized layout with proper spacing
 - **Value Labels**: Each bar shows the exact beta ratio
 - **Reference Line**: Dashed line at 1.0 for symmetry reference
 
@@ -76,25 +72,15 @@ The analysis is split into two comprehensive charts for optimal readability:
 - **Color Coding**: Red (high positive bias) to Blue (high negative bias)
 - **Clear identification** of asymmetric sectors (Energy: 0.751, Industrials: 1.079)
 
-#### 3. Original Comprehensive Analysis
-**Complete S&P 500 analysis with all sectors in one view:**
-
-![Complete S&P 500 Sector Analysis](docs/sp500_optimized_sector_charts.png)
-
-#### 4. Beta Comparison Analysis
+#### 3. Beta Comparison Analysis
 **Detailed beta analysis showing relationships between different beta measures:**
 
 ![Beta Comparison Analysis](docs/beta_comparison.png)
 
-#### 5. Statistical Testing Results
+#### 4. Statistical Testing Results
 **T-test results and statistical significance of beta asymmetry:**
 
 ![T-Test Results](docs/t_test_results.png)
-
-#### 6. Beta Heatmap
-**Visual heatmap showing beta patterns across sectors:**
-
-![Beta Heatmap](docs/sp500_beta_heatmap.png)
 
 ## Technical Implementation
 
