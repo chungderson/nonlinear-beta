@@ -266,4 +266,4 @@ This project was developed using:
 - **GitHub**: Version control and repository hosting
 - **Alpaca Markets API**: Financial data provider
 
-*Built with modern AI-assisted development tools to accelerate research and analysis.* 
+*Built with modern AI-assisted development tools to accelerate research and analysis.*
