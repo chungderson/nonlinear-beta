@@ -1,18 +1,30 @@
-import json
-import requests
-import pandas as pd
-import numpy as np
+#!/usr/bin/env python3
+"""
+Nonlinear Beta Analysis using Alpaca Markets API
+Analyzes beta relationships during positive vs negative market conditions.
+"""
+
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend to prevent windows from opening
 import matplotlib.pyplot as plt
-import seaborn as sns
+import numpy as np
+import pandas as pd
+import requests
+import json
+from datetime import datetime, timedelta
+import time
 from scipy import stats
-from sklearn.linear_model import LinearRegression
+import warnings
+warnings.filterwarnings('ignore')
+
+# Import plotly for interactive plots
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-import warnings
-from datetime import datetime, timedelta
-import time
-warnings.filterwarnings('ignore')
+
+# Import your existing Alpaca functions
+from getBars import getBars
+from helperMethods import getTradingDays, calculateDrift
 
 def load_config():
     """Load Alpaca configuration from config.json"""
@@ -410,7 +422,7 @@ class NonlinearBetaAnalyzer:
         
         return df
         
-    def plot_beta_comparison(self, top_n=20):
+    def plot_beta_comparison(self, top_n=20, save_path=None):
         """Plot comparison of positive vs negative betas and asymmetry analysis."""
         if not self.results:
             print("No results available. Run analyze_all_stocks() first.")
@@ -461,7 +473,12 @@ class NonlinearBetaAnalyzer:
         axes[1, 1].grid(True, alpha=0.3)
         
         plt.tight_layout()
-        plt.show()
+        
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight', facecolor='white')
+            plt.close(fig)  # Close the specific figure
+        else:
+            plt.show()
         
     def plot_interactive_scatter(self):
         """Create an interactive scatter plot using Plotly."""
@@ -471,7 +488,7 @@ class NonlinearBetaAnalyzer:
             
         df = self.create_summary_dataframe()
         
-    def plot_t_test_results(self, t_test_results):
+    def plot_t_test_results(self, t_test_results, save_path=None):
         """Plot t-test results showing the distribution of beta differences."""
         if not t_test_results or 'df_pairs' not in t_test_results:
             print("No t-test results available.")
@@ -520,7 +537,12 @@ class NonlinearBetaAnalyzer:
         axes[1, 1].grid(True, alpha=0.3)
         
         plt.tight_layout()
-        plt.show()
+        
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight', facecolor='white')
+            plt.close(fig)  # Close the specific figure
+        else:
+            plt.show()
         
         # Print t-test summary
         print(f"\nT-Test Summary:")
@@ -734,6 +756,18 @@ def main():
     # Plot t-test results
     if t_test_results:
         analyzer.plot_t_test_results(t_test_results)
+    
+    # Save main visualizations to docs folder
+    print("\nSaving main analysis visualizations to docs/ folder...")
+    
+    # Generate and save beta comparison plot
+    analyzer.plot_beta_comparison(save_path='docs/beta_comparison.png')
+    
+    # Generate and save t-test results plot
+    if t_test_results:
+        analyzer.plot_t_test_results(t_test_results, save_path='docs/t_test_results.png')
+    
+    print("Main analysis visualizations saved to docs/ folder!")
     
     # Save results to CSV
     df = analyzer.create_summary_dataframe()
