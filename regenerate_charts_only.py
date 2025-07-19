@@ -59,7 +59,7 @@ def create_sector_charts(beta_results, sector_map):
     remaining_5_sectors = sectors[6:11]
     
     # Create first chart with 6 sectors (3x2 layout) - taller for better readability
-    fig1, axes1 = plt.subplots(3, 2, figsize=(20, 30))  # Increased height from 24 to 30
+    fig1, axes1 = plt.subplots(3, 2, figsize=(20, 36))  # Increased height from 30 to 36
     axes1 = axes1.flatten()
     
     for i, sector in enumerate(first_6_sectors):
@@ -110,7 +110,7 @@ def create_sector_charts(beta_results, sector_map):
     print("First 6 sectors chart saved to docs/sp500_sector_charts_part1.png")
     
     # Create second chart with remaining 5 sectors (3x2 layout) - taller for better readability
-    fig2, axes2 = plt.subplots(3, 2, figsize=(20, 30))  # Increased height from 24 to 30
+    fig2, axes2 = plt.subplots(3, 2, figsize=(20, 36))  # Increased height from 30 to 36
     axes2 = axes2.flatten()
     
     for i, sector in enumerate(remaining_5_sectors):
@@ -242,6 +242,52 @@ def create_sector_beta_charts(beta_results, sector_map):
     plt.close()
     print("Sector beta comparison chart saved to docs/sector_beta_comparison.png")
 
+def create_beta_comparison_chart(beta_results, sector_map):
+    """Create beta comparison chart showing positive vs negative betas for individual stocks."""
+    if not beta_results:
+        print("No beta results available.")
+        return
+    
+    # Convert to DataFrame
+    df = pd.DataFrame.from_dict(beta_results, orient='index')
+    df = df.dropna(subset=['positive_beta', 'negative_beta'])
+    
+    # Sort by positive beta for better visualization
+    df_sorted = df.sort_values('positive_beta', ascending=False)
+    
+    # Take top 20 stocks for readability
+    top_stocks = df_sorted.head(20)
+    
+    # Create the plot
+    fig, ax = plt.subplots(figsize=(14, 10))
+    
+    x = np.arange(len(top_stocks))
+    width = 0.35
+    
+    # Create bars for positive and negative betas
+    bars1 = ax.bar(x - width/2, top_stocks['positive_beta'], width, label='Positive Beta', color='green', alpha=0.7)
+    bars2 = ax.bar(x + width/2, top_stocks['negative_beta'], width, label='Negative Beta', color='red', alpha=0.7)
+    
+    ax.set_xlabel('Stock')
+    ax.set_ylabel('Beta Value')
+    ax.set_title('Positive vs Negative Betas for Top 20 Stocks')
+    ax.set_xticks(x)
+    ax.set_xticklabels(top_stocks.index, rotation=45, ha='right')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    
+    # Add value labels on bars
+    for bars in [bars1, bars2]:
+        for bar in bars:
+            height = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width()/2., height + 0.01,
+                    f'{height:.3f}', ha='center', va='bottom', fontsize=8)
+    
+    plt.tight_layout()
+    plt.savefig('docs/beta_comparison.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    print("Beta comparison chart saved to docs/beta_comparison.png")
+
 def main():
     """Main function to regenerate charts."""
     print("Regenerating charts using existing data...")
@@ -260,6 +306,7 @@ def main():
     # Generate charts
     create_sector_charts(beta_results, sector_map)
     create_sector_beta_charts(beta_results, sector_map)
+    create_beta_comparison_chart(beta_results, sector_map)
     
     print("Chart regeneration complete!")
 
