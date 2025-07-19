@@ -53,6 +53,9 @@ The analysis is split into two comprehensive charts for optimal readability:
 1. **`docs/sp500_sector_charts_part1.png`** - First 6 sectors with improved readability
 2. **`docs/sp500_sector_charts_part2.png`** - Remaining 5 sectors with enhanced spacing
 
+![S&P 500 Sector Charts Part 1](docs/sp500_sector_charts_part1.png)
+![S&P 500 Sector Charts Part 2](docs/sp500_sector_charts_part2.png)
+
 **Features:**
 - **Gradient Color Scheme**: Red (high positive bias) → Orange → Yellow → Light Blue → Blue (high negative bias)
 - **Improved Readability**: Taller charts (30" height) with optimized font sizes
@@ -66,6 +69,8 @@ The analysis is split into two comprehensive charts for optimal readability:
 - Beta ratio comparison across all sectors
 - Consistent gradient color scheme
 - Clear visual identification of asymmetric sectors
+
+![Sector Beta Comparison](docs/sector_beta_comparison.png)
 
 ## Technical Implementation
 
