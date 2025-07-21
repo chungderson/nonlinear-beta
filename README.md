@@ -1,4 +1,4 @@
-# Nonlinear Beta Analysis: Challenging CAPM Assumptions
+# Nonlinear Beta: CAPM is Lying to You About Risk
 
 This repository implements a comprehensive analysis of nonlinear beta relationships in stock returns, challenging the traditional CAPM assumption that stocks have constant sensitivity to market movements regardless of market direction.
 
