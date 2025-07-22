@@ -139,11 +139,8 @@ Traditional CAPM assumes that a stock's beta (sensitivity to market movements) i
 - **Effect Size (Cohen's d)**: -0.0140
 
 **Sector-Specific Significance:**
-- **Energy**: p < 0.001 (***) - Strong negative bias
-- **Information Technology**: p < 0.01 (**) - Positive bias
-- **Real Estate**: p < 0.05 (*) - Negative bias
-- **Materials**: p < 0.05 (*) - Positive bias
-
+- **Energy**: p < 0.05 (**) - Strong negative bias
+- **Information Technology**: p < 0.15 - Positive bias
 **Extreme Cases Analysis:**
 - **10 out of 10 extreme asymmetric stocks are statistically significant**
 - **Top significant cases:**
