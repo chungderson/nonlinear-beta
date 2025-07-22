@@ -234,3 +234,6 @@ Contributions are welcome! Please feel free to submit issues, feature requests, 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Disclaimer
+Nothing in this project should be construed as financial advice. This project was made with help from a suite of AI development tools such as Cursor, Claude Code, and Github Copilot. Do your own due diligence prior to implementing any trading strategy.
